@@ -10,13 +10,15 @@ Built for the Remote Backend Django Engineer assessment.
 
 | Feature | Detail |
 |---|---|
-| **Route API** | `POST /api/route/` — returns route + fuel stops + total cost |
+| **Route API** | `POST /api/route/` — returns route + fuel stops + total cost (accepts JSON body, form-data, or URL query parameters) |
 | **Map View** | `GET /api/map/` — interactive Leaflet.js map in the browser |
 | **Routing** | OSRM public API — **1 HTTP call** per route |
-| **Algorithm** | O(N²) Dynamic Programming — guaranteed cheapest stop sequence |
-| **Data** | 3,000+ US truck stop prices from provided CSV |
+| **Geocoding** | Nominatim + **Photon fallback** (bypasses 429 rate limit errors automatically) |
+| **CORS Enabled** | Native CORS headers support (`django-cors-headers`) for Hoppscotch testing |
+| **Algorithm** | O(N²) Dijkstra Graph Optimization — guaranteed cheapest stop sequence |
+| **Data** | 6,700+ US truck stop prices from provided CSV (fully geocoded database) |
 | **Cache** | 1-hour in-memory cache for repeated routes |
-| **Speed** | < 1 second after warm-up (stations pre-loaded in memory) |
+| **Speed** | Instant on cache hits, < 1.5 seconds on new paths (stations preloaded in memory) |
 
 ---
 
@@ -138,8 +140,9 @@ POST /api/route/
 
 ## Tech Stack
 
-- **Django 5.x** + **Django REST Framework**
-- **geopy** (Nominatim geocoding)
+- **Django 4.2 LTS** + **Django REST Framework** (stable and Python 3.9 compatible)
+- **django-cors-headers** (CORS preflight support)
+- **geopy** (Nominatim + Photon geocoding)
 - **requests** (OSRM API)
 - **SQLite** (station database)
 - **Leaflet.js** (map rendering)
