@@ -36,20 +36,13 @@ class RouteView(APIView):
     parser_classes = [JSONParser, FormParser, MultiPartParser]
 
     def post(self, request):
-        print(f"--- DEBUG INCOMING REQUEST ---")
-        print(f"Method: {request.method}")
-        print(f"Content-Type: {request.content_type}")
-        print(f"Query Params: {request.query_params}")
-        print(f"Raw Body: {request.body}")
-        print(f"Parsed request.data: {request.data}")
-        print(f"-----------------------------")
-
         data = request.data
         if not data:
             try:
                 data = json.loads(request.body.decode("utf-8"))
             except Exception:
                 data = {}
+
 
 
         # 1. Try body data
