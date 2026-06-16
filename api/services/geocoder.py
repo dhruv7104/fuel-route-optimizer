@@ -1,12 +1,39 @@
+import os
 import time
 import logging
 from typing import Dict, Optional, Tuple
+from urllib.parse import urlparse
 from geopy.geocoders import Nominatim, Photon
 
 logger = logging.getLogger(__name__)
 
-_nominatim = Nominatim(user_agent="fuel_route_optimizer_v1", timeout=10)
-_photon = Photon(timeout=10)
+nominatim_url = os.getenv("NOMINATIM_URL", "https://nominatim.openstreetmap.org")
+if not nominatim_url.startswith("http://") and not nominatim_url.startswith("https://"):
+    nominatim_url = "https://" + nominatim_url
+parsed_nominatim = urlparse(nominatim_url)
+nominatim_scheme = parsed_nominatim.scheme
+nominatim_domain = parsed_nominatim.netloc
+
+_nominatim = Nominatim(
+    domain=nominatim_domain,
+    scheme=nominatim_scheme,
+    user_agent="fuel_route_optimizer_v1",
+    timeout=10
+)
+
+photon_url = os.getenv("PHOTON_URL", "https://photon.komoot.io")
+if not photon_url.startswith("http://") and not photon_url.startswith("https://"):
+    photon_url = "https://" + photon_url
+parsed_photon = urlparse(photon_url)
+photon_scheme = parsed_photon.scheme
+photon_domain = parsed_photon.netloc
+
+_photon = Photon(
+    domain=photon_domain,
+    scheme=photon_scheme,
+    timeout=10
+)
+
 _cache: Dict[tuple, Optional[Tuple[float, float]]] = {}
 
 

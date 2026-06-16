@@ -9,6 +9,7 @@ Provides:
 - haversine()          → distance between two lat/lng in miles
 - station_route_dist() → project station onto route, return (off_miles, route_miles)
 """
+import os
 import math
 import logging
 from typing import Dict, List, Optional, Tuple
@@ -16,7 +17,7 @@ import requests
 
 logger = logging.getLogger(__name__)
 
-OSRM_BASE = "http://router.project-osrm.org/route/v1/driving"
+OSRM_BASE = os.getenv("OSRM_BASE_URL", "http://router.project-osrm.org/route/v1/driving")
 TIMEOUT = 30  # seconds
 
 

@@ -1,0 +1,182 @@
+openapi: 3.0.3
+info:
+  title: Fuel Route Optimizer API
+  version: 1.0.0
+  description: API to calculate cheapest fuel stops along a route.
+paths:
+  /api/route/:
+    post:
+      summary: Optimize fuel stops for a route
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start:
+                  type: string
+                  example: "New York, NY"
+                end:
+                  type: string
+                  example: "Los Angeles, CA"
+              required:
+                - start
+                - end
+      responses:
+        '200':
+          description: Optimal fuel stop plan and route details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteOptimizationResponse'
+        '400':
+          description: Bad request (missing fields or geocoding failure)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+        '422':
+          description: Unprocessable entity (no feasible route)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+        '502':
+          description: Bad gateway (OSRM routing failure)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+components:
+  schemas:
+    LocationDetail:
+      type: object
+      properties:
+        address:
+          type: string
+        lat:
+          type: number
+        lng:
+          type: number
+      required:
+        - address
+        - lat
+        - lng
+    RouteDetail:
+      type: object
+      properties:
+        start:
+          $ref: '#/components/schemas/LocationDetail'
+        end:
+          $ref: '#/components/schemas/LocationDetail'
+        total_distance_miles:
+          type: number
+        geometry:
+          type: array
+          items:
+            type: array
+            items:
+              type: number
+            minItems: 2
+            maxItems: 2
+      required:
+        - start
+        - end
+        - total_distance_miles
+        - geometry
+    FuelStop:
+      type: object
+      properties:
+        opis_id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        retail_price:
+          type: number
+        latitude:
+          type: number
+        longitude:
+          type: number
+        route_dist:
+          type: number
+        off_route_miles:
+          type: number
+        fuel_gallons:
+          type: number
+        fuel_cost_usd:
+          type: number
+        route_distance_from_start_miles:
+          type: number
+      required:
+        - opis_id
+        - name
+        - address
+        - city
+        - state
+        - retail_price
+        - latitude
+        - longitude
+        - route_dist
+        - off_route_miles
+        - fuel_gallons
+        - fuel_cost_usd
+        - route_distance_from_start_miles
+    OptimizationSummary:
+      type: object
+      properties:
+        total_fuel_cost_usd:
+          type: number
+        total_gallons_needed:
+          type: number
+        num_stops:
+          type: integer
+        vehicle_range_miles:
+          type: integer
+        vehicle_mpg:
+          type: integer
+      required:
+        - total_fuel_cost_usd
+        - total_gallons_needed
+        - num_stops
+        - vehicle_range_miles
+        - vehicle_mpg
+    RouteOptimizationResponse:
+      type: object
+      properties:
+        route:
+          $ref: '#/components/schemas/RouteDetail'
+        fuel_stops:
+          type: array
+          items:
+            $ref: '#/components/schemas/FuelStop'
+        summary:
+          $ref: '#/components/schemas/OptimizationSummary'
+        map_url:
+          type: string
+      required:
+        - route
+        - fuel_stops
+        - summary
+        - map_url

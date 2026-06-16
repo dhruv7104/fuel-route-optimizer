@@ -1,0 +1,114 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/route/",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "start": "Columbia, NJ",
+      "end": "Big Cabin, OK"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "body": {
+      "route": {
+        "start": {
+          "address": "Columbia, NJ",
+          "lat": 40.9257935,
+          "lng": -75.0941913
+        },
+        "end": {
+          "address": "Big Cabin, OK",
+          "lat": 36.5378651,
+          "lng": -95.221358
+        },
+        "total_distance_miles": 1200.0,
+        "geometry": [
+          [
+            40.9257935,
+            -75.0941913
+          ],
+          [
+            36.5378651,
+            -95.221358
+          ]
+        ]
+      },
+      "fuel_stops": [
+        {
+          "opis_id": 207,
+          "name": "MARATHON",
+          "address": "SR-32",
+          "city": "Sardinia",
+          "state": "OH",
+          "retail_price": 3.56566666,
+          "latitude": 39.0078448,
+          "longitude": -83.8085377,
+          "route_dist": 486.6623197004099,
+          "off_route_miles": 1.21,
+          "fuel_gallons": 4.37,
+          "fuel_cost_usd": 15.58,
+          "route_distance_from_start_miles": 486.7
+        },
+        {
+          "opis_id": 7382,
+          "name": "TA FLORENCE TRAVEL CENTER",
+          "address": "I-75, EXIT 181",
+          "city": "Florence",
+          "state": "KY",
+          "retail_price": 3.07066666,
+          "latitude": 38.9989499,
+          "longitude": -84.6266111,
+          "route_dist": 530.360118563343,
+          "off_route_miles": 10.12,
+          "fuel_gallons": 0.06,
+          "fuel_cost_usd": 0.17,
+          "route_distance_from_start_miles": 530.4
+        },
+        {
+          "opis_id": 7372,
+          "name": "TA WALTON #28",
+          "address": "I-75/I-71, EXIT 175 & SR-338",
+          "city": "Walton",
+          "state": "KY",
+          "retail_price": 3.00233333,
+          "latitude": 38.8756194,
+          "longitude": -84.6102213,
+          "route_dist": 530.9195223626248,
+          "off_route_miles": 1.63,
+          "fuel_gallons": 29.33,
+          "fuel_cost_usd": 88.07,
+          "route_distance_from_start_miles": 530.9
+        },
+        {
+          "opis_id": 66353,
+          "name": "MOTOMART #3361",
+          "address": "I-55, EXIT 129",
+          "city": "Perryville",
+          "state": "MO",
+          "retail_price": 2.989,
+          "latitude": 37.7275127,
+          "longitude": -89.8645455,
+          "route_dist": 824.2563858909581,
+          "off_route_miles": 1.46,
+          "fuel_gallons": 37.57,
+          "fuel_cost_usd": 112.31,
+          "route_distance_from_start_miles": 824.3
+        }
+      ],
+      "summary": {
+        "total_fuel_cost_usd": 216.13,
+        "total_gallons_needed": 120.0,
+        "num_stops": 4,
+        "vehicle_range_miles": 500,
+        "vehicle_mpg": 10
+      },
+      "map_url": "/api/map/?start=Columbia, NJ&end=Big Cabin, OK"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

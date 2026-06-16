@@ -1,0 +1,24 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/search",
+    "query": {
+      "q": "Columbia, NJ, USA",
+      "format": "json",
+      "limit": "1"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "body": [
+      {
+        "lat": "40.9257935",
+        "lon": "-75.0941913",
+        "display_name": "Columbia, NJ, USA"
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/search",
+    "query": {
+      "q": "Big Cabin, OK, USA",
+      "format": "json",
+      "limit": "1"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "body": [
+      {
+        "lat": "36.5378651",
+        "lon": "-95.221358",
+        "display_name": "Big Cabin, OK, USA"
+      }
+    ],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

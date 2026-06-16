@@ -1,0 +1,22 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/route/",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "start": "xyznonexistent",
+      "end": "Big Cabin, OK"
+    }
+  },
+  "http-response": {
+    "status": 400,
+    "body": {
+      "error": "Could not geocode start location: 'xyznonexistent'"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

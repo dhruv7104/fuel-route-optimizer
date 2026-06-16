@@ -1,0 +1,20 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/api",
+    "query": {
+      "q": "xyznonexistent, USA",
+      "limit": "1"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": []
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

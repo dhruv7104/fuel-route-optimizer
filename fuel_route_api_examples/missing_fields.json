@@ -1,0 +1,22 @@
+{
+  "http-request": {
+    "method": "POST",
+    "path": "/api/route/",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "start": "",
+      "end": ""
+    }
+  },
+  "http-response": {
+    "status": 400,
+    "body": {
+      "error": "Both 'start' and 'end' fields are required."
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

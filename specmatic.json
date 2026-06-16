@@ -1,0 +1,15 @@
+{
+  "sources": [
+    {
+      "provider": "filesystem",
+      "test": [
+        "/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/fuel_route_api.yaml"
+      ],
+      "stub": [
+        "/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/specmatic_stubs/osrm_api.yaml",
+        "/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/specmatic_stubs/nominatim_api.yaml",
+        "/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/specmatic_stubs/photon_api.yaml"
+      ]
+    }
+  ]
+}

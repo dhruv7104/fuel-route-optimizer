@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Photon Geocoder API
+  version: 1.0.0
+  description: Stub for Komoot Photon geocoding API.
+paths:
+  /api:
+    get:
+      summary: Geocode location
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "New York, USA"
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Search results in GeoJSON format
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: "FeatureCollection"
+                  features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: "Feature"
+                        geometry:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              example: "Point"
+                            coordinates:
+                              type: array
+                              items:
+                                type: number
+                              minItems: 2
+                              maxItems: 2
+                              example: [-74.0060152, 40.7127281]
+                          required:
+                            - type:
+                            - coordinates
+                        properties:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: "New York"
+                      required:
+                        - type:
+                        - geometry
+                required:
+                  - type:
+                  - features

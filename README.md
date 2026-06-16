@@ -146,3 +146,37 @@ POST /api/route/
 - **requests** (OSRM API)
 - **SQLite** (station database)
 - **Leaflet.js** (map rendering)
+
+---
+
+## Specmatic Contract Testing (Offline Service Virtualization)
+
+We use **Specmatic** to validate our REST API against an OpenAPI contract and to virtualize (stub) all three external dependencies (OSRM, Nominatim, Photon). This allows our tests to run completely offline, reliably, and instantly on every run.
+
+### Prerequisites
+- Java 21 (required by Specmatic engine)
+- Node.js / `npx`
+
+### How to Run the Contract Tests
+
+1. **Start the Specmatic Stub Server:**
+   This reads the local API specs and hosts the OSRM, Nominatim, and Photon mock services on port 9000:
+   ```bash
+   npx specmatic stub --config=specmatic.json
+   ```
+
+2. **Start the Django Server in Testing Mode:**
+   Start the Django server on port 8005 and point the external service environment variables to the local stub server:
+   ```bash
+   OSRM_BASE_URL=http://localhost:9000/route/v1/driving \
+   NOMINATIM_URL=http://localhost:9000 \
+   PHOTON_URL=http://localhost:9000 \
+   python manage.py runserver 8005
+   ```
+
+3. **Run the Contract Tests:**
+   This runs the contract tests against the Django API using the configured test examples:
+   ```bash
+   npx specmatic test --host localhost --port 8005 --config=specmatic.json
+   ```
+

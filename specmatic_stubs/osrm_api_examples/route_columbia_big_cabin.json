@@ -1,0 +1,32 @@
+{
+  "http-request": {
+    "method": "GET",
+    "path": "/route/v1/driving/-75.0941913,40.9257935;-95.221358,36.5378651",
+    "query": {
+      "overview": "full",
+      "geometries": "geojson",
+      "steps": "false"
+    }
+  },
+  "http-response": {
+    "status": 200,
+    "body": {
+      "code": "Ok",
+      "routes": [
+        {
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [-75.0941913, 40.9257935],
+              [-95.221358, 36.5378651]
+            ]
+          },
+          "distance": 1931212.8
+        }
+      ]
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

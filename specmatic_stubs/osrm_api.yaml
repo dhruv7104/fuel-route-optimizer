@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: OSRM Route Service API
+  version: 1.0.0
+  description: Stub for OSRM driving route API.
+paths:
+  /route/v1/driving/{coordinates}:
+    get:
+      summary: Get driving route
+      parameters:
+        - name: coordinates
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "-74.006,40.7128;-118.2437,34.0522"
+        - name: overview
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [full, simplified, false]
+        - name: geometries
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [geojson, polyline, polyline6]
+        - name: steps
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ["true", "false"]
+      responses:
+        '200':
+          description: Route details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "Ok"
+                  routes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        geometry:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              example: "LineString"
+                            coordinates:
+                              type: array
+                              items:
+                                type: array
+                                items:
+                                  type: number
+                                minItems: 2
+                                maxItems: 2
+                          required:
+                            - type:
+                            - coordinates
+                        distance:
+                          type: number
+                          example: 4500000
+                      required:
+                        - geometry
+                        - distance
+                required:
+                  - code
+                  - routes

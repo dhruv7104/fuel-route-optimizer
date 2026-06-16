@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: Nominatim Geocoder API
+  version: 1.0.0
+  description: Stub for OpenStreetMap Nominatim search API.
+paths:
+  /search:
+    get:
+      summary: Search location coordinates
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "New York, USA"
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [json, jsonv2, xml, html]
+          example: "json"
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    lat:
+                      type: string
+                      example: "40.7127281"
+                    lon:
+                      type: string
+                      example: "-74.0060152"
+                    display_name:
+                      type: string
+                      example: "New York, USA"
+                  required:
+                    - lat
+                    - lon
+                    - display_name
