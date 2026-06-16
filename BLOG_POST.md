@@ -28,7 +28,7 @@ Testing error scenarios—like OSRM failing with a `500 Server Error` or Nominat
 
 Instead of writing custom Python mock libraries, we chose **Specmatic**'s contract-first mocking. We defined OpenAPI specs not just for our own Django REST API, but also for each external service we consume.
 
-![OpenAPI Contract Specification](/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/docs/images/step1_openapi_spec.png)
+![OpenAPI Contract Specification](docs/images/step1_openapi_spec.png)
 _Figure 1: OpenAPI specification (fuel_route_api.yaml) defining request and response models._
 
 ```
@@ -52,7 +52,7 @@ By pointing our Django code at the Specmatic stub server, our application contin
 
 To hook this all together, we configure the test contract and service stubs inside [specmatic.json](file:///Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/specmatic.json):
 
-![Specmatic Configuration](/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/docs/images/step2_specmatic_config.png)
+![Specmatic Configuration](docs/images/step2_specmatic_config.png)
 _Figure 2: Specmatic configuration mapping the local API contract and dependency stubs._
 
 ---
@@ -150,7 +150,7 @@ _nominatim = Nominatim(
 )
 ```
 
-![Dynamic Geocoder Configuration in Python](/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/docs/images/step3_geocoder_refactor.png)
+![Dynamic Geocoder Configuration in Python](docs/images/step3_geocoder_refactor.png)
 _Figure 3: Dynamically configuring external geocoding endpoints using environmental variables in [geocoder.py](file:///Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/api/services/geocoder.py)._
 
 ### 2. Dynamic Router Configuration ([router.py](file:///Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/api/services/router.py))
@@ -198,7 +198,7 @@ During test execution, we started the single Specmatic stub server:
 PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH" npx specmatic stub --config=specmatic.json
 ```
 
-![Specmatic Stub Server Running](/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/docs/images/step4_specmatic_stub.png)
+![Specmatic Stub Server Running](docs/images/step4_specmatic_stub.png)
 _Figure 4: The Specmatic mock stub server starting up and listening on port 9000._
 
 Then we started Django, pointing all external dependencies to port 9000:
@@ -209,7 +209,7 @@ PHOTON_URL=http://localhost:9000 \
 venv/bin/python manage.py runserver 8005
 ```
 
-![Django Server Running in Test Mode](/Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/docs/images/step5_django_server.png)
+![Django Server Running in Test Mode](docs/images/step5_django_server.png)
 _Figure 5: Django server running on port 8005, with external routing directed to port 9000._
 
 Running the Specmatic tests validates that our API matches the [fuel_route_api.yaml](file:///Users/dhruv714/Downloads/PROJECTS/fuel_route_optimizer/fuel_route_api.yaml) OpenAPI contract:
